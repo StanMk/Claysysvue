@@ -27,7 +27,7 @@ export default {
   methods: {
     initSignalR() {
       this.connection = new signalR.HubConnectionBuilder()
-        .withUrl("http://localhost:55680/notificationsHub", {
+        .withUrl("https://claysys-dev-as.azurewebsites.net", {
           skipNegotiation: true,
           transport: signalR.HttpTransportType.WebSockets,
         }) 
@@ -56,7 +56,7 @@ export default {
     },
     async fetchUnreadCount() {
       try {
-        const response = await axios.get("http://localhost:55680/api/notifications/unread"); 
+        const response = await axios.get("https://claysys-dev-as.azurewebsites.net/api/unread"); 
         this.unreadCount = response.data.unreadCount;
       } catch (error) {
         console.error("Error while fetching unread notification count:", error);
@@ -69,7 +69,7 @@ export default {
 
     async sendNotification() {
       try {
-        await axios.post("http://localhost:55680/api/notifications/send");
+        await axios.post("https://claysys-dev-as.azurewebsites.net/api/send");
         this.fetchUnreadCount();
       } catch (error) {
         console.error("Error while sending notification:", error);
@@ -77,7 +77,7 @@ export default {
     },
      async resetNotifications() {
       try {
-        await axios.post("http://localhost:55680/api/notifications/reset");
+        await axios.post("https://claysys-dev-as.azurewebsites.net/api/reset");
         this.fetchUnreadCount();
       } catch (error) {
         console.error("Error while resetting notifications:", error);
